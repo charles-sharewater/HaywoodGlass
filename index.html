@@ -68,21 +68,22 @@
       position: relative; overflow: hidden;
       text-align: center;
     }
-    /* Text scrim — strong behind logo/copy/buttons, transparent at edges */
+    /* Text scrim — soft feathered vignette behind logo/copy/buttons */
     #hero::before {
       content: '';
       position: absolute; inset: 0; pointer-events: none;
       background:
-        radial-gradient(ellipse 70% 65% at 50% 52%,
-          rgba(4,7,10,0.88) 0%,
-          rgba(4,7,10,0.72) 35%,
-          rgba(4,7,10,0.28) 62%,
-          transparent 85%),
+        radial-gradient(ellipse 110% 90% at 50% 52%,
+          rgba(4,7,10,0.80) 0%,
+          rgba(4,7,10,0.55) 38%,
+          rgba(4,7,10,0.18) 65%,
+          rgba(4,7,10,0.04) 82%,
+          transparent 100%),
         linear-gradient(180deg,
-          rgba(4,7,10,0.55) 0%,
-          transparent 18%,
-          transparent 78%,
-          rgba(4,7,10,0.45) 100%);
+          rgba(4,7,10,0.28) 0%,
+          transparent 22%,
+          transparent 76%,
+          rgba(4,7,10,0.22) 100%);
     }
     /* Warm amber vignette — echoes the autumn foliage in the photo */
     #hero::after {
@@ -166,7 +167,7 @@
       background: var(--surface-2);
       border-top: 2px solid rgba(232,75,28,0.2);
       border-bottom: 2px solid rgba(232,75,28,0.2);
-      padding-top: 5rem;
+      padding: 5rem 1.5rem;
     }
     .about-inner {
       display: grid;
@@ -226,6 +227,7 @@
       text-transform: uppercase; color: #fff;
     }
     .door-divider { color: rgba(255,255,255,0.5); }
+    @media (max-width: 600px) { .door-divider { display: none; } }
 
     /* ── SHARED SECTION STYLES ── */
     .section-inner { max-width: 1100px; margin: 0 auto; }
@@ -533,14 +535,12 @@
 
     /* ── WINDOW SCROLL CROSSFADE ── */
     #window-reveal {
-      height: 300vh;
       position: relative;
       /* Desktop: give breathing room on sides */
       padding: 0;
     }
     .wr-sticky {
-      position: sticky;
-      top: 68px;
+      position: relative;
       height: calc(100vh - 68px);
       overflow: hidden;
     }
@@ -602,15 +602,18 @@
     .wr-line1 { color: #fff; }
     .wr-line2 { color: var(--amber); }
 
-    /* the clear frame starts invisible — JS drives opacity via --wr-progress */
+    /* the clear frame starts invisible — JS adds .wr-visible once in view */
     .wr-clear {
-      opacity: var(--wr-progress, 0);
-      transition: opacity 0.05s linear;
+      opacity: 0;
+      transition: opacity 1.6s ease-in-out;
     }
+    .wr-clear.wr-visible { opacity: 1; }
     /* broken frame text fades OUT as clear fades in */
     .wr-text-from {
-      opacity: calc(1 - var(--wr-progress, 0));
+      opacity: 1;
+      transition: opacity 1.6s ease-in-out;
     }
+    .wr-text-from.wr-hidden { opacity: 0; }
 
     /* ── FOOTER ── */
     footer {
@@ -886,26 +889,26 @@
   </footer>
 
   <script>
-    // ── Window crossfade on scroll ──
+    // ── Window crossfade — fires once when section scrolls into view ──
     (function() {
-      const section = document.getElementById('window-reveal');
-      const sticky  = section.querySelector('.wr-sticky');
+      const section    = document.getElementById('window-reveal');
+      const clearFrame = section.querySelector('.wr-clear');
+      const fromText   = section.querySelector('.wr-text-from');
+      let done = false;
 
-      function update() {
-        const rect   = section.getBoundingClientRect();
-        const navH   = 68;
-        // scrolled distance into the section past the sticky top
-        const scrolled = -rect.top + navH;
-        // total scroll travel = section height minus one viewport
-        const travel   = section.offsetHeight - (window.innerHeight - navH);
-        // clamp 0→1
-        const progress = Math.max(0, Math.min(1, scrolled / travel));
-        sticky.style.setProperty('--wr-progress', progress.toFixed(4));
-      }
+      const obs = new IntersectionObserver(entries => {
+        if (done) return;
+        if (entries[0].isIntersecting) {
+          done = true;
+          setTimeout(() => {
+            clearFrame.classList.add('wr-visible');
+            if (fromText) fromText.classList.add('wr-hidden');
+          }, 350);
+          obs.disconnect();
+        }
+      }, { threshold: 0.4 });
 
-      window.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', update, { passive: true });
-      update();
+      obs.observe(section);
     })();
 
     // ── File upload label ──
@@ -918,12 +921,34 @@
           : `${this.files.length} photos selected`;
     });
 
-    // ── Form submit ──
-    // TODO: Connect to Formspree / Netlify Forms to deliver submissions to Matt's email
-    document.getElementById('contact-form').addEventListener('submit', function(e) {
+    // ── Form submit → Formspree (emails Matt@HaywoodGlass.com) ──
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
       e.preventDefault();
-      this.style.display = 'none';
-      document.getElementById('fc-success').classList.add('visible');
+      const btn = this.querySelector('.fc-submit');
+      const originalHTML = btn.innerHTML;
+      btn.innerHTML = 'Sending…';
+      btn.disabled = true;
+
+      const data = new FormData(this);
+      try {
+        const res = await fetch('https://formspree.io/f/REPLACE_WITH_FORM_ID', {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          this.style.display = 'none';
+          document.getElementById('fc-success').classList.add('visible');
+        } else {
+          btn.innerHTML = originalHTML;
+          btn.disabled = false;
+          alert('Something went wrong — please call or text Matt at 828-400-8657.');
+        }
+      } catch {
+        btn.innerHTML = originalHTML;
+        btn.disabled = false;
+        alert('Something went wrong — please call or text Matt at 828-400-8657.');
+      }
     });
 
     // ── Service tile stagger reveal ──
