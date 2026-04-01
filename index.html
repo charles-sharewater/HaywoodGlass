@@ -5,1125 +5,994 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Haywood Glass — Western North Carolina's Glass Specialists</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              orange:  '#E84B1C',
-              amber:   '#F5A021',
-              blue:    '#3A9ED4',
-              steel:   '#87C3E0',
-              ink:     '#080A0C',
-              ink2:    '#10141A',
-              ink3:    '#181E26',
-              surface: '#F6F3EE',
-              warm:    '#EDE8DF',
-            }
-          },
-          fontFamily: {
-            display: ['"Bebas Neue"', 'Impact', 'sans-serif'],
-            body:    ['"Source Sans 3"', 'sans-serif'],
-          },
-          letterSpacing: {
-            tightest: '-0.04em',
-            wide2:    '0.12em',
-          }
-        }
-      }
-    }
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
-    *, *::before, *::after { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Source Sans 3', sans-serif; background: #F6F3EE; color: #10141A; }
 
-    /* ── Grain overlay ── */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-      opacity: 0.45;
-    }
-
-    /* ── Spacing tokens ── */
     :root {
-      --sp-xs:  0.5rem;
-      --sp-sm:  1rem;
-      --sp-md:  1.75rem;
-      --sp-lg:  3rem;
-      --sp-xl:  5rem;
-      --sp-2xl: 8rem;
-
-      --shadow-card:
-        0 1px 2px rgba(8,10,12,0.06),
-        0 4px 12px rgba(8,10,12,0.10),
-        0 12px 28px rgba(8,10,12,0.08);
-      --shadow-card-hover:
-        0 2px 4px rgba(8,10,12,0.08),
-        0 8px 24px rgba(58,158,212,0.15),
-        0 20px 48px rgba(8,10,12,0.14);
-      --shadow-orange:
-        0 2px 8px rgba(232,75,28,0.25),
-        0 8px 24px rgba(232,75,28,0.18);
-      --radius: 10px;
-      --radius-lg: 16px;
+      --orange:  #E84B1C;
+      --amber:   #F5A021;
+      --blue:    #3A9ED4;
+      --ink:     #080A0C;
+      --ink-2:   #0F1419;
+      --surface: #F5F1EA;
+      --surface-2: #EDE8DE;
     }
 
-    /* ── Nav ── */
-    #site-nav {
+    body { font-family: 'Barlow', sans-serif; background: var(--surface); color: var(--ink); }
+
+    /* ── NAV ── */
+    header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(8,10,12,0.96);
+      background: rgba(8,10,12,0.97);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      transition: background 0.3s ease;
     }
-    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 72px; }
-    .nav-logo img { height: 48px; width: auto; }
-    .nav-links { display: flex; align-items: center; gap: 2.5rem; }
-    .nav-links a { font-family: 'Source Sans 3', sans-serif; font-weight: 600; font-size: 0.875rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.78); text-decoration: none; transition: color 0.2s ease; }
-    .nav-links a:hover { color: #fff; }
-    .btn-nav {
-      background: #E84B1C; color: #fff; padding: 0.6rem 1.4rem;
-      font-family: 'Source Sans 3', sans-serif; font-weight: 700; font-size: 0.875rem;
-      letter-spacing: 0.05em; text-transform: uppercase; border-radius: 6px;
+    .nav-inner {
+      max-width: 1140px; margin: 0 auto; padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo img { height: 52px; width: auto; display: block; }
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+    .nav-phone {
+      color: rgba(255,255,255,0.72); font-weight: 600; font-size: 0.9rem;
+      letter-spacing: 0.03em; text-decoration: none; transition: color 0.2s;
+    }
+    .nav-phone:hover { color: #fff; }
+    .btn-cta {
+      background: var(--orange); color: #fff;
+      font-weight: 700; font-size: 0.85rem;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 0.55rem 1.25rem; border-radius: 6px;
       text-decoration: none; border: none; cursor: pointer;
-      box-shadow: var(--shadow-orange);
-      transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+      box-shadow: 0 2px 12px rgba(232,75,28,0.35);
+      transition: background 0.2s, transform 0.15s;
     }
-    .btn-nav:hover { background: #c93e17; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(232,75,28,0.35); }
-    .btn-nav:active { transform: translateY(0); }
+    .btn-cta:hover { background: #c93e17; transform: translateY(-1px); }
+    .btn-cta:active { transform: none; }
+    @media (max-width: 500px) { .nav-phone { display: none; } }
 
-    /* Hamburger */
-    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
-    .hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: transform 0.25s ease, opacity 0.25s ease; }
-    .mobile-menu { display: none; position: fixed; inset: 0; top: 72px; background: #080A0C; z-index: 99; padding: 2rem; flex-direction: column; gap: 1.5rem; }
-    .mobile-menu a { font-size: 1.5rem; font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.08em; color: #fff; text-decoration: none; padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
-    .mobile-menu.open { display: flex; }
-
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-    }
-
-    /* ── Hero ── */
+    /* ── HERO ── */
     #hero {
-      position: relative; min-height: 100vh; display: flex; align-items: center;
-      background: #080A0C; overflow: hidden;
+      min-height: 100vh;
+      background: url('Assets/Yocom-Parkway-Fall-e1574184147457.jpg') center 40% / cover no-repeat;
+      image-rendering: crisp-edges;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 108px 1.5rem 24px;
+      position: relative; overflow: hidden;
+      text-align: center;
     }
-    .hero-bg-img {
-      position: absolute; inset: 0;
-      background: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80') center/cover no-repeat;
-      opacity: 0.22;
-    }
-    /* Mountain silhouette gradient */
-    .hero-gradient {
-      position: absolute; inset: 0;
+    /* Text scrim — strong behind logo/copy/buttons, transparent at edges */
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
       background:
-        radial-gradient(ellipse 80% 60% at 20% 50%, rgba(58,158,212,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 80% at 80% 30%, rgba(232,75,28,0.10) 0%, transparent 55%),
-        linear-gradient(to bottom, rgba(8,10,12,0.2) 0%, rgba(8,10,12,0.85) 100%);
+        radial-gradient(ellipse 70% 65% at 50% 52%,
+          rgba(4,7,10,0.88) 0%,
+          rgba(4,7,10,0.72) 35%,
+          rgba(4,7,10,0.28) 62%,
+          transparent 85%),
+        linear-gradient(180deg,
+          rgba(4,7,10,0.55) 0%,
+          transparent 18%,
+          transparent 78%,
+          rgba(4,7,10,0.45) 100%);
     }
-    .hero-content { position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 140px 2rem 100px; width: 100%; }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 0.6rem;
-      background: rgba(232,75,28,0.15); border: 1px solid rgba(232,75,28,0.4);
-      color: #F5A021; padding: 0.45rem 1rem; border-radius: 50px;
-      font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      animation: fadeUp 0.6s ease both;
+    /* Warm amber vignette — echoes the autumn foliage in the photo */
+    #hero::after {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 80% 50% at 50% 80%,
+        rgba(200,100,30,0.10) 0%,
+        transparent 60%);
     }
-    .hero-badge::before { content: '●'; font-size: 0.5rem; color: #E84B1C; animation: pulse 2s ease infinite; }
-    @keyframes pulse { 0%,100% { opacity:1 } 50% { opacity:0.3 } }
-    .hero-headline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3.5rem, 9vw, 8rem);
-      letter-spacing: -0.02em; line-height: 0.92;
-      color: #fff; margin-bottom: 1.5rem;
-      text-shadow: 0 2px 40px rgba(0,0,0,0.6);
-      animation: fadeUp 0.6s 0.1s ease both;
+
+    .hero-logo {
+      position: relative; z-index: 2;
+      width: min(1000px, 92vw);
+      margin-bottom: 0.75rem;
+      margin-top: 0;
+      animation: fadeUp 0.65s ease both;
+      filter: drop-shadow(0 4px 32px rgba(0,0,0,0.8));
     }
-    .hero-headline em { font-style: normal; color: #3A9ED4; }
-    .hero-sub {
-      font-size: clamp(1.1rem, 2.2vw, 1.35rem); color: rgba(255,255,255,0.72);
-      line-height: 1.7; max-width: 600px; margin-bottom: 2.5rem;
-      animation: fadeUp 0.6s 0.2s ease both;
+    .hero-copy {
+      position: relative; z-index: 2;
+      font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+      color: rgba(255,255,255,0.78);
+      line-height: 1.75; max-width: 640px;
+      margin-bottom: 1.25rem;
+      animation: fadeUp 0.65s 0.1s ease both;
     }
-    .hero-estimate-badge {
-      display: inline-flex; align-items: center; gap: 0.75rem;
-      background: linear-gradient(135deg, rgba(232,75,28,0.2), rgba(245,160,33,0.15));
-      border: 1.5px solid rgba(232,75,28,0.5);
-      border-radius: 8px; padding: 0.85rem 1.5rem; margin-bottom: 2.5rem;
-      animation: fadeUp 0.6s 0.25s ease both;
+    .hero-copy strong { color: #fff; font-weight: 700; }
+    .hero-location {
+      position: relative; z-index: 2;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50px; padding: 0.4rem 1rem;
+      font-size: 0.875rem; font-weight: 600; letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 2.75rem;
+      animation: fadeUp 0.65s 0.18s ease both;
     }
-    .hero-estimate-badge .badge-icon { font-size: 1.5rem; }
-    .hero-estimate-badge .badge-text { display: flex; flex-direction: column; }
-    .hero-estimate-badge .badge-title { font-weight: 700; font-size: 1rem; color: #F5A021; letter-spacing: 0.02em; }
-    .hero-estimate-badge .badge-sub { font-size: 0.82rem; color: rgba(255,255,255,0.65); margin-top: 1px; }
-    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.6s 0.35s ease both; }
+    .hero-ctas {
+      position: relative; z-index: 2;
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 0.65s 0.26s ease both;
+    }
     .btn-primary {
-      background: #E84B1C; color: #fff; padding: 1rem 2.2rem;
-      font-weight: 700; font-size: 1rem; letter-spacing: 0.04em; text-transform: uppercase;
-      border-radius: 8px; text-decoration: none; border: none; cursor: pointer;
-      box-shadow: var(--shadow-orange);
-      transition: background 0.2s ease, transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease;
+      background: var(--orange); color: #fff;
+      font-weight: 700; font-size: 1rem;
+      letter-spacing: 0.03em; text-transform: uppercase;
+      padding: 1rem 2rem; border-radius: 8px;
+      text-decoration: none; border: none; cursor: pointer;
       display: inline-flex; align-items: center; gap: 0.5rem;
+      box-shadow: 0 4px 20px rgba(232,75,28,0.4);
+      transition: background 0.2s,
+                  transform 0.18s cubic-bezier(0.34,1.56,0.64,1),
+                  box-shadow 0.2s;
     }
-    .btn-primary:hover { background: #c93e17; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(232,75,28,0.4); }
-    .btn-primary:active { transform: translateY(0); }
-    .btn-primary:focus-visible { outline: 2px solid #E84B1C; outline-offset: 3px; }
-    .btn-outline {
-      background: transparent; color: #fff; padding: 1rem 2.2rem;
-      font-weight: 600; font-size: 1rem; letter-spacing: 0.04em; text-transform: uppercase;
-      border: 1.5px solid rgba(255,255,255,0.35); border-radius: 8px;
+    .btn-primary:hover { background: #c93e17; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(232,75,28,0.5); }
+    .btn-primary:active { transform: none; }
+    .btn-primary:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+    .btn-secondary {
+      background: transparent; color: #fff;
+      font-weight: 600; font-size: 1rem;
+      letter-spacing: 0.03em; text-transform: uppercase;
+      padding: 1rem 2rem; border-radius: 8px;
+      border: 1.5px solid rgba(255,255,255,0.3);
       text-decoration: none; cursor: pointer;
-      transition: border-color 0.2s ease, background 0.2s ease, transform 0.18s ease;
       display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: border-color 0.2s, background 0.2s, transform 0.18s;
     }
-    .btn-outline:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.06); transform: translateY(-2px); }
-    .btn-outline:active { transform: translateY(0); }
-    .btn-outline:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.65); background: rgba(255,255,255,0.06); transform: translateY(-2px); }
+    .btn-secondary:active { transform: none; }
+    .btn-secondary:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
+      from { opacity: 0; transform: translateY(22px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* Hero scroll indicator */
-    .scroll-hint { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.4); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; animation: fadeUp 1s 0.8s ease both; }
-    .scroll-hint .arrow { width: 1px; height: 36px; background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent); animation: scrollAnim 1.8s ease infinite; }
-    @keyframes scrollAnim { 0%,100% { opacity:0.4; transform: scaleY(1) translateY(0); } 50% { opacity:0.9; transform: scaleY(1.1) translateY(4px); } }
 
-    /* ── Trust bar ── */
-    #trust {
-      background: #10141A; border-top: 1px solid rgba(255,255,255,0.06);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+    /* ── ABOUT MATT ── */
+    #about {
+      background: var(--surface-2);
+      border-top: 2px solid rgba(232,75,28,0.2);
+      border-bottom: 2px solid rgba(232,75,28,0.2);
+      padding-top: 5rem;
     }
-    .trust-inner { max-width: 1280px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(4, 1fr); }
-    .trust-item { padding: 1.75rem 2rem; display: flex; align-items: center; gap: 1rem; border-right: 1px solid rgba(255,255,255,0.06); }
-    .trust-item:last-child { border-right: none; }
-    .trust-icon { font-size: 1.75rem; flex-shrink: 0; }
-    .trust-label { font-size: 0.78rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.09em; font-weight: 600; }
-    .trust-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.35rem; letter-spacing: 0.04em; color: #fff; line-height: 1.1; }
-    .trust-value span { color: #E84B1C; }
-
-    @media (max-width: 900px) {
-      .trust-inner { grid-template-columns: repeat(2, 1fr); }
-      .trust-item:nth-child(2) { border-right: none; }
-      .trust-item { border-bottom: 1px solid rgba(255,255,255,0.06); }
-      .trust-item:nth-child(3), .trust-item:nth-child(4) { border-bottom: none; }
-    }
-    @media (max-width: 500px) {
-      .trust-inner { grid-template-columns: 1fr; }
-      .trust-item { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.06) !important; }
-      .trust-item:last-child { border-bottom: none !important; }
-    }
-
-    /* ── Section shared ── */
-    .section { padding: var(--sp-2xl) 0; }
-    .section-inner { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
-    .section-tag { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #E84B1C; margin-bottom: 0.85rem; }
-    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem); letter-spacing: -0.02em; line-height: 1; color: #080A0C; margin-bottom: 1rem; }
-    .section-title.light { color: #fff; }
-    .section-sub { font-size: 1.1rem; line-height: 1.7; color: #4A5263; max-width: 580px; }
-    .section-sub.light { color: rgba(255,255,255,0.65); }
-
-    /* ── About ── */
-    #about { background: #F6F3EE; }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-    .about-img-wrap { position: relative; border-radius: var(--radius-lg); overflow: hidden; }
-    .about-img-wrap img { width: 100%; height: 520px; object-fit: cover; display: block; border-radius: var(--radius-lg); }
-    .about-img-wrap::after {
-      content: ''; position: absolute; inset: 0; border-radius: var(--radius-lg);
-      background: linear-gradient(to top, rgba(8,10,12,0.55) 0%, transparent 50%);
-    }
-    .about-img-badge {
-      position: absolute; bottom: 1.5rem; left: 1.5rem; z-index: 2;
-      background: #E84B1C; color: #fff; padding: 0.75rem 1.25rem; border-radius: 8px;
-      font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.04em;
-      box-shadow: var(--shadow-orange);
-    }
-    .about-img-badge small { display: block; font-family: 'Source Sans 3', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.85; }
-    .about-copy { display: flex; flex-direction: column; gap: 1.5rem; }
-    .about-copy p { font-size: 1.05rem; line-height: 1.75; color: #3A404F; }
-    .about-copy strong { color: #080A0C; }
-    .about-bullets { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem; }
-    .about-bullet { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.98rem; color: #3A404F; }
-    .about-bullet::before { content: ''; width: 6px; height: 6px; background: #E84B1C; border-radius: 50%; margin-top: 0.5rem; flex-shrink: 0; }
-
-    @media (max-width: 900px) {
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .about-img-wrap img { height: 360px; }
-    }
-
-    /* ── Services ── */
-    #services { background: #fff; }
-    .services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; gap: 2rem; }
-    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
-    .service-card {
-      background: #fff; border-radius: var(--radius-lg); overflow: hidden;
-      box-shadow: var(--shadow-card); border: 1px solid rgba(8,10,12,0.06);
-      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
-      display: flex; flex-direction: column;
-    }
-    .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-card-hover); }
-    .service-card:focus-within { outline: 2px solid #3A9ED4; outline-offset: 2px; }
-    .service-img { position: relative; height: 220px; overflow: hidden; }
-    .service-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
-    .service-card:hover .service-img img { transform: scale(1.04); }
-    .service-img-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(8,10,12,0.7) 0%, rgba(8,10,12,0.1) 55%, transparent 100%);
-    }
-    /* Color treatment layer */
-    .service-img-overlay::after {
-      content: ''; position: absolute; inset: 0;
-      background: rgba(58,158,212,0.12); mix-blend-mode: multiply;
-    }
-    .service-icon-badge {
-      position: absolute; top: 1rem; left: 1rem;
-      background: rgba(8,10,12,0.7); backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 8px; padding: 0.5rem 0.75rem;
-      font-size: 1.4rem; line-height: 1; z-index: 2;
-    }
-    .service-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; gap: 0.6rem; }
-    .service-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.03em; color: #080A0C; line-height: 1; }
-    .service-desc { font-size: 0.95rem; line-height: 1.65; color: #4A5263; flex: 1; }
-    .service-link {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-      color: #E84B1C; text-decoration: none; margin-top: 0.5rem;
-      transition: gap 0.2s ease, color 0.2s ease;
-    }
-    .service-link:hover { gap: 0.7rem; color: #c93e17; }
-    .service-link:focus-visible { outline: 2px solid #E84B1C; outline-offset: 2px; border-radius: 2px; }
-    .service-link .arrow { transition: transform 0.2s ease; }
-    .service-link:hover .arrow { transform: translateX(3px); }
-
-    @media (max-width: 1024px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) { .services-grid { grid-template-columns: 1fr; } .services-header { flex-direction: column; align-items: flex-start; } }
-
-    /* ── Why Us ── */
-    #why { background: #10141A; }
-    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem; }
-    .why-card {
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius-lg); padding: 2.25rem;
-      transition: background 0.2s ease, border-color 0.2s ease, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
-    }
-    .why-card:hover { background: rgba(255,255,255,0.07); border-color: rgba(58,158,212,0.3); transform: translateY(-4px); }
-    .why-icon { font-size: 2.5rem; margin-bottom: 1.25rem; display: block; }
-    .why-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.04em; color: #fff; margin-bottom: 0.75rem; }
-    .why-desc { font-size: 0.97rem; line-height: 1.7; color: rgba(255,255,255,0.6); }
-
-    @media (max-width: 900px) { .why-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 580px) { .why-grid { grid-template-columns: 1fr; } }
-
-    /* ── Gallery ── */
-    #gallery { background: #F6F3EE; }
-    .gallery-grid {
+    .about-inner {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(2, 280px);
-      gap: 1rem; margin-top: 3.5rem;
+      grid-template-columns: 300px 1fr;
+      gap: 4rem;
+      align-items: start;
     }
-    .gallery-item { position: relative; overflow: hidden; border-radius: var(--radius); }
-    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-    .gallery-item:nth-child(4) { grid-column: span 2; }
-    .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.45s ease; }
-    .gallery-item:hover img { transform: scale(1.06); }
-    .gallery-item-overlay {
+    @media (max-width: 860px) {
+      .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+    }
+    .about-photo {
+      width: 100%; border-radius: 14px;
+      object-fit: cover; aspect-ratio: 4/5;
+      box-shadow: 0 8px 32px rgba(8,10,12,0.18);
+    }
+    .about-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem; letter-spacing: 0.04em;
+      color: var(--ink); margin-top: 1rem;
+      text-align: center;
+    }
+    .about-body {
+      font-size: 1.05rem; line-height: 1.78;
+      color: rgba(8,10,12,0.78); margin-bottom: 1.25rem;
+    }
+    .about-body strong { color: var(--ink); }
+    .about-stats {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+      margin-top: 1.25rem; padding-top: 1.25rem;
+      border-top: 1px solid rgba(8,10,12,0.1);
+      justify-content: center;
+    }
+    .astat { display: flex; flex-direction: column; gap: 0.25rem; align-items: center; }
+    .astat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem; line-height: 1; color: var(--orange);
+      letter-spacing: 0.02em;
+    }
+    .astat-label {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: rgba(8,10,12,0.5);
+      text-align: center;
+    }
+
+    footer { position: relative; overflow: hidden; }
+
+    /* ── DOOR BANNER ── */
+    .door-banner {
+      background: linear-gradient(100deg, #c93e17 0%, var(--orange) 55%, #e8601c 100%);
+      padding: 1.1rem 1.5rem;
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.75rem; flex-wrap: wrap;
+    }
+    .door-banner p {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1.05rem; letter-spacing: 0.06em;
+      text-transform: uppercase; color: #fff;
+    }
+    .door-divider { color: rgba(255,255,255,0.5); }
+
+    /* ── SHARED SECTION STYLES ── */
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 0.78rem;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      letter-spacing: 0.03em; line-height: 1;
+      margin-bottom: 2.75rem;
+    }
+
+    /* ── QUICK ACTIONS ── */
+    #get-started {
+      background: var(--surface);
+      padding: 5.5rem 1.5rem;
+    }
+    .paths-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 720px) {
+      .paths-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── INLINE FORM CARD ── */
+    .form-card {
+      background: var(--ink); border-radius: 14px;
+      padding: 2rem 1.75rem 1.75rem;
+      border: 1px solid rgba(232,75,28,0.2);
+      box-shadow: 0 1px 3px rgba(8,10,12,0.08), 0 6px 20px rgba(232,75,28,0.1);
+      display: flex; flex-direction: column; gap: 0.75rem;
+    }
+    .form-card .path-title { color: #fff; }
+    .fc-field { display: flex; flex-direction: column; gap: 0.3rem; }
+    .fc-field label {
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.55);
+    }
+    .fc-field input, .fc-field textarea {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.9rem; color: #fff;
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      border-radius: 7px; padding: 0.6rem 0.85rem;
+      width: 100%; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .fc-field input::placeholder, .fc-field textarea::placeholder { color: rgba(255,255,255,0.3); }
+    .fc-field input:focus, .fc-field textarea:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(232,75,28,0.15);
+    }
+    .fc-field textarea { resize: none; min-height: 72px; }
+    .fc-submit {
+      width: 100%; padding: 0.75rem;
+      background: var(--orange); color: #fff;
+      font-family: 'Barlow', sans-serif;
+      font-weight: 700; font-size: 0.9rem;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      border: none; border-radius: 7px; cursor: pointer;
+      box-shadow: 0 3px 14px rgba(232,75,28,0.35);
+      transition: background 0.2s, transform 0.18s cubic-bezier(0.34,1.56,0.64,1);
+      display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+      margin-top: 0.25rem;
+    }
+    .fc-submit:hover { background: #c93e17; transform: translateY(-2px); }
+    .fc-submit:active { transform: none; }
+    .fc-submit:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+    /* Upload zone inside form card */
+    .fc-upload {
+      position: relative; border: 1.5px dashed rgba(255,255,255,0.18);
+      border-radius: 7px; background: rgba(255,255,255,0.04);
+      padding: 0.65rem 0.85rem; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .fc-upload:hover { border-color: var(--orange); background: rgba(232,75,28,0.06); }
+    .fc-upload input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer;
+      width: 100%; height: 100%; border: none; padding: 0;
+    }
+    .fc-upload-inner { display: flex; align-items: center; gap: 0.5rem; pointer-events: none; }
+    .fc-upload-label { font-size: 0.82rem; color: rgba(255,255,255,0.45); }
+
+    .fc-success {
+      display: none; flex-direction: column; align-items: center;
+      gap: 0.75rem; text-align: center; padding: 1rem 0;
+    }
+    .fc-success.visible { display: flex; }
+    .fc-success-icon {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(34,197,94,0.15);
+      display: flex; align-items: center; justify-content: center;
+      color: #22c55e; font-size: 1.4rem;
+    }
+    .fc-success-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem; letter-spacing: 0.04em; color: #fff;
+    }
+    .fc-success-sub { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.5; }
+    .path-photo {
+      margin: -2rem -1.75rem 1.25rem;
+      height: 420px; overflow: hidden;
+      border-radius: 10px 10px 0 0; flex-shrink: 0;
+    }
+    .path-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 28%;
+      display: block;
+    }
+    .path-card {
+      background: #fff; border-radius: 14px;
+      padding: 2rem 1.75rem 1.75rem;
+      border: 1px solid rgba(0,0,0,0.07);
+      box-shadow: 0 1px 3px rgba(8,10,12,0.05), 0 6px 20px rgba(8,10,12,0.06);
+      display: flex; flex-direction: column; gap: 0.85rem;
+      text-decoration: none; color: inherit;
+      transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease;
+    }
+    .path-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 2px 6px rgba(8,10,12,0.07), 0 14px 36px rgba(58,158,212,0.12);
+    }
+    .path-icon {
+      width: 50px; height: 50px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .icon-orange { background: rgba(232,75,28,0.1); }
+    .icon-amber  { background: rgba(245,160,33,0.12); }
+    .path-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1.2rem; letter-spacing: 0.02em; color: var(--ink);
+    }
+    .path-desc { font-size: 0.95rem; color: #4A5568; line-height: 1.65; flex: 1; }
+    .path-cta {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-weight: 700; font-size: 0.85rem;
+      letter-spacing: 0.05em; text-transform: uppercase; margin-top: 0.5rem;
+    }
+    .cta-orange { color: var(--orange); }
+    .cta-amber  { color: #C07B0A; }
+
+
+    /* ── SERVICES ── */
+    #services {
+      background: var(--ink-2, #0F1419);
+      padding: 5.5rem 1.5rem;
+    }
+    #services .section-label { color: var(--amber); }
+    #services .section-title { color: #fff; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 640px) { .services-grid { grid-template-columns: 1fr; } }
+
+    /* Tile base — hidden until revealed */
+    .service-tile {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; overflow: hidden;
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease,
+                  background 0.2s, border-color 0.2s;
+      position: relative;
+    }
+    .service-tile:nth-child(2) { transition-delay: 0.10s; }
+    .service-tile:nth-child(3) { transition-delay: 0.18s; }
+    .service-tile:nth-child(4) { transition-delay: 0.26s; }
+    .service-tile.tile-revealed { opacity: 1; transform: none; }
+    .service-tile:hover {
+      background: rgba(255,255,255,0.065);
+      border-color: rgba(58,158,212,0.22);
+    }
+
+    /* Glass-sheen sweep across each tile on reveal */
+    .service-tile::before {
+      content: '';
+      position: absolute; top: 0; left: 0; bottom: 0; width: 60%;
+      background: linear-gradient(110deg,
+        transparent 20%, rgba(255,255,255,0.055) 50%, transparent 80%);
+      transform: translateX(-180%); pointer-events: none; z-index: 10;
+    }
+    .service-tile.tile-revealed::before {
+      animation: tile-sheen 1.0s 0.25s ease forwards;
+    }
+    @keyframes tile-sheen {
+      from { transform: translateX(-180%); }
+      to   { transform: translateX(350%); }
+    }
+
+    /* Phone-camera look — slightly warm, a touch of grain, natural imperfection */
+    .tile-visual img {
+      filter: contrast(1.04) saturate(0.82) brightness(0.96) warm(0deg);
+    }
+    .tile-visual::after {
+      content: '';
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    /* Visual area — top of every tile */
+    .tile-visual {
+      position: relative; width: 100%;
+      aspect-ratio: 3/2; overflow: hidden;
+    }
+
+    /* Crossfade image stack (broken → clear) */
+    .compare-img {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(8,10,12,0.65) 0%, transparent 55%);
-      opacity: 0; transition: opacity 0.3s ease;
-      display: flex; align-items: flex-end; padding: 1.25rem;
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
     }
-    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
-    .gallery-item-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.06em; color: #fff; }
+    .img-after  { z-index: 1; }
+    .img-before { z-index: 2; } /* starts opaque, auto-fades when tile fully in view */
+    .img-before.cf-fading { transition: opacity 1.4s ease-in-out; }
 
-    @media (max-width: 900px) {
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
-      .gallery-item:nth-child(1) { grid-column: span 2; height: 320px; }
-      .gallery-item:nth-child(4) { grid-column: span 1; }
-      .gallery-item { height: 220px; }
+    .compare-labels {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      z-index: 3; padding: 0.75rem 0.75rem 0.5rem;
+      background: linear-gradient(0deg, rgba(0,0,0,0.55) 0%, transparent 100%);
+      pointer-events: none;
     }
-    @media (max-width: 500px) {
-      .gallery-grid { grid-template-columns: 1fr; }
-      .gallery-item:nth-child(1), .gallery-item:nth-child(4) { grid-column: span 1; }
+    .cl-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 4px;
     }
+    .cl-before { background: rgba(232,75,28,0.9); color: #fff; }
+    .cl-after  { background: rgba(28,160,90,0.9); color: #fff; }
 
-    /* ── Testimonials ── */
-    #testimonials { background: #fff; }
-    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; margin-top: 3.5rem; }
-    .testi-card {
-      background: #F6F3EE; border-radius: var(--radius-lg);
-      padding: 2rem; border: 1px solid rgba(8,10,12,0.06);
-      box-shadow: var(--shadow-card);
-      display: flex; flex-direction: column; gap: 1rem;
-      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
+    .compare-hint {
+      position: absolute; top: 0.65rem; left: 50%; transform: translateX(-50%);
+      z-index: 4; white-space: nowrap;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.65);
+      background: rgba(0,0,0,0.48); backdrop-filter: blur(4px);
+      padding: 0.22rem 0.7rem; border-radius: 20px;
+      transition: opacity 0.5s ease; pointer-events: none;
     }
-    .testi-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
-    .testi-stars { color: #F5A021; font-size: 1rem; letter-spacing: 0.1em; }
-    .testi-quote { font-size: 1rem; line-height: 1.7; color: #3A404F; font-style: italic; flex: 1; }
-    .testi-quote::before { content: '\201C'; font-family: Georgia, serif; font-size: 3rem; line-height: 0; vertical-align: -0.6em; color: rgba(232,75,28,0.25); margin-right: 0.15em; }
-    .testi-author { display: flex; align-items: center; gap: 0.85rem; padding-top: 1rem; border-top: 1px solid rgba(8,10,12,0.08); }
-    .testi-avatar { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
-    .testi-avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .testi-name { font-weight: 700; font-size: 0.92rem; color: #080A0C; }
-    .testi-location { font-size: 0.8rem; color: #6B7589; letter-spacing: 0.03em; }
+    .compare-hint.hidden { opacity: 0; }
 
-    @media (max-width: 900px) { .testi-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 580px) { .testi-grid { grid-template-columns: 1fr; } }
-
-    /* ── CTA Banner ── */
-    #cta-banner {
-      background: #080A0C; position: relative; overflow: hidden;
-      padding: var(--sp-xl) 0;
+    /* Styled icon visuals for non-photo tiles */
+    .icon-visual {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; position: relative;
     }
-    .cta-bg {
+    .icon-mirror {
+      background: linear-gradient(135deg, #101828 0%, #1c2f48 50%, #0d1a28 100%);
+    }
+    .icon-mirror::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg,
+        transparent 20%, rgba(160,200,255,0.08) 48%,
+        rgba(200,230,255,0.12) 50%, rgba(160,200,255,0.08) 52%, transparent 80%);
+      pointer-events: none;
+    }
+    .icon-shower {
+      background: linear-gradient(180deg, #081e2e 0%, #0f3048 60%, #081820 100%);
+    }
+    .icon-shower::after {
+      content: '';
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 70% 80% at 15% 50%, rgba(232,75,28,0.18) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 70% at 85% 40%, rgba(58,158,212,0.12) 0%, transparent 55%);
+        radial-gradient(ellipse 70% 50% at 55% 30%, rgba(58,158,212,0.18) 0%, transparent 65%),
+        repeating-linear-gradient(90deg,
+          transparent, transparent 18px,
+          rgba(58,158,212,0.03) 18px, rgba(58,158,212,0.03) 19px);
+      pointer-events: none;
     }
-    .cta-inner { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; padding: 0 2rem; text-align: center; }
-    .cta-inner .section-title { color: #fff; margin-bottom: 1.25rem; }
-    .cta-inner p { font-size: 1.15rem; line-height: 1.7; color: rgba(255,255,255,0.7); margin-bottom: 2.5rem; }
-    .cta-inner .btn-primary { font-size: 1.1rem; padding: 1.15rem 2.8rem; }
-
-    /* ── Contact ── */
-    #contact { background: #F6F3EE; }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; }
-    .contact-info { display: flex; flex-direction: column; gap: 2rem; }
-    .contact-detail { display: flex; align-items: flex-start; gap: 1rem; }
-    .contact-detail-icon { width: 44px; height: 44px; background: rgba(232,75,28,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
-    .contact-detail-text strong { display: block; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.07em; color: #080A0C; margin-bottom: 0.25rem; }
-    .contact-detail-text span { font-size: 0.97rem; color: #4A5263; line-height: 1.5; }
-    .contact-form { background: #fff; border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-card); border: 1px solid rgba(8,10,12,0.06); }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-    .form-field { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; }
-    .form-field label { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #080A0C; }
-    .form-field input, .form-field select, .form-field textarea {
-      width: 100%; padding: 0.85rem 1rem; border-radius: 8px;
-      border: 1.5px solid rgba(8,10,12,0.14); background: #F6F3EE;
-      font-family: 'Source Sans 3', sans-serif; font-size: 0.97rem; color: #080A0C;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-      outline: none;
+    .icon-cabinet {
+      background: linear-gradient(145deg, #1a1208 0%, #2c1e08 55%, #181008 100%);
     }
-    .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
-      border-color: #3A9ED4;
-      box-shadow: 0 0 0 3px rgba(58,158,212,0.15);
+    .icon-cabinet::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 40% 55%, rgba(245,160,33,0.14) 0%, transparent 65%),
+        repeating-linear-gradient(170deg,
+          transparent, transparent 22px,
+          rgba(245,160,33,0.03) 22px, rgba(245,160,33,0.03) 23px);
+      pointer-events: none;
     }
-    .form-field textarea { resize: vertical; min-height: 130px; }
 
-    @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; gap: 3rem; } }
-    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
-
-    /* ── Footer ── */
-    #footer { background: #080A0C; padding: 4rem 0 2rem; }
-    .footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
-    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3.5rem; }
-    .footer-logo img { height: 52px; width: auto; margin-bottom: 1.25rem; }
-    .footer-about { font-size: 0.92rem; line-height: 1.7; color: rgba(255,255,255,0.5); }
-    .footer-col-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.1em; color: #fff; margin-bottom: 1rem; }
-    .footer-links { display: flex; flex-direction: column; gap: 0.6rem; }
-    .footer-links a { font-size: 0.9rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s ease; }
-    .footer-links a:hover { color: #fff; }
-    .footer-links a:focus-visible { outline: 1px solid #3A9ED4; outline-offset: 2px; }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.75rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
-    .footer-copy { font-size: 0.82rem; color: rgba(255,255,255,0.3); }
-    .footer-copy a { color: rgba(255,255,255,0.45); text-decoration: none; }
-    .footer-copy a:hover { color: #fff; }
-
-    @media (max-width: 900px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; } }
-    @media (max-width: 500px) { .footer-top { grid-template-columns: 1fr; } }
-
-    /* ── Sticky estimate bar (mobile) ── */
-    .sticky-cta {
-      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
-      background: #E84B1C; color: #fff; text-align: center; padding: 1rem;
-      font-weight: 700; font-size: 0.95rem; letter-spacing: 0.04em; text-transform: uppercase;
-      text-decoration: none; box-shadow: 0 -4px 24px rgba(232,75,28,0.4);
+    /* Tile text body */
+    .tile-body { padding: 1.4rem 1.75rem 1.75rem; }
+    .service-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1.25rem; letter-spacing: 0.02em;
+      color: #fff; margin-bottom: 0.5rem;
     }
-    .sticky-cta:focus-visible { outline: 2px solid #fff; }
-    @media (max-width: 768px) { .sticky-cta { display: block; } }
+    .service-desc { font-size: 0.9rem; color: rgba(255,255,255,0.52); line-height: 1.65; }
 
-    /* Scroll reveal */
-    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22,1,0.36,1); }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .reveal-delay-4 { transition-delay: 0.4s; }
-    .reveal-delay-5 { transition-delay: 0.5s; }
+    /* ── WINDOW SCROLL CROSSFADE ── */
+    #window-reveal {
+      height: 300vh;
+      position: relative;
+      /* Desktop: give breathing room on sides */
+      padding: 0;
+    }
+    .wr-sticky {
+      position: sticky;
+      top: 68px;
+      height: calc(100vh - 68px);
+      overflow: hidden;
+    }
+    /* Desktop: pull in from edges, round the corners */
+    @media (min-width: 900px) {
+      #window-reveal {
+        padding: 0 6%;
+        background: var(--surface);
+      }
+      .wr-sticky {
+        border-radius: 20px;
+        box-shadow: 0 20px 80px rgba(8,10,12,0.45);
+      }
+    }
+    .wr-frame {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wr-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    /* dark vignette overlays */
+    .wr-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .wr-overlay-broken {
+      background: radial-gradient(ellipse at center, rgba(8,10,12,0.15) 0%, rgba(8,10,12,0.65) 100%);
+    }
+    .wr-overlay-clear {
+      background: radial-gradient(ellipse at center, rgba(8,10,12,0.05) 0%, rgba(8,10,12,0.55) 100%);
+    }
+    /* text blocks */
+    .wr-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 0 6% 8%;
+      pointer-events: none;
+    }
+    .wr-text span {
+      display: block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.2rem, 9vw, 7.5rem);
+      line-height: 0.9;
+      letter-spacing: -0.01em;
+      text-shadow: 0 4px 40px rgba(8,10,12,0.7);
+    }
+    .wr-line1 { color: #fff; }
+    .wr-line2 { color: var(--amber); }
+
+    /* the clear frame starts invisible — JS drives opacity via --wr-progress */
+    .wr-clear {
+      opacity: var(--wr-progress, 0);
+      transition: opacity 0.05s linear;
+    }
+    /* broken frame text fades OUT as clear fades in */
+    .wr-text-from {
+      opacity: calc(1 - var(--wr-progress, 0));
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      padding: 3.5rem 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 1.75rem; text-align: center;
+    }
+    footer img { height: 56px; width: auto; }
+    .footer-contacts {
+      display: flex; flex-wrap: wrap; gap: 1.75rem; justify-content: center;
+    }
+    .footer-contacts a, .footer-contacts span {
+      color: rgba(255,255,255,0.6); font-size: 0.95rem; text-decoration: none;
+      display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s;
+    }
+    .footer-contacts a:hover { color: #fff; }
+    .footer-tagline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem; letter-spacing: 0.12em; color: rgba(255,255,255,0.25);
+    }
+    .footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.18); }
   </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════ NAV ═══ -->
-<nav id="site-nav" role="navigation" aria-label="Main navigation">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo" aria-label="Haywood Glass Home">
-      <img src="brand-assets/Logo.PNG" alt="Haywood Glass">
-    </a>
-    <div class="nav-links" role="list">
-      <a href="#about" role="listitem">About</a>
-      <a href="#services" role="listitem">Services</a>
-      <a href="#gallery" role="listitem">Gallery</a>
-      <a href="#testimonials" role="listitem">Reviews</a>
-      <a href="#contact" role="listitem">Contact</a>
-      <a href="#contact" class="btn-nav" role="listitem">Free Estimate</a>
-    </div>
-    <button class="hamburger" aria-label="Open menu" aria-expanded="false" id="hamburger-btn">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
-<!-- Mobile menu -->
-<div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobile navigation">
-  <a href="#about" onclick="closeMobileMenu()">About</a>
-  <a href="#services" onclick="closeMobileMenu()">Services</a>
-  <a href="#gallery" onclick="closeMobileMenu()">Gallery</a>
-  <a href="#testimonials" onclick="closeMobileMenu()">Reviews</a>
-  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
-  <a href="#contact" class="btn-primary" style="text-align:center; margin-top:1rem;" onclick="closeMobileMenu()">Get Free Estimate</a>
-</div>
-
-<!-- ═══════════════════════════════════════════ HERO ══ -->
-<section id="hero" aria-label="Hero">
-  <div class="hero-bg-img" aria-hidden="true"></div>
-  <div class="hero-gradient" aria-hidden="true"></div>
-  <div class="hero-content">
-    <div class="hero-badge" role="note">
-      Western North Carolina's Glass Specialists
-    </div>
-    <h1 class="hero-headline">
-      Clarity You Can<br><em>Count On</em>
-    </h1>
-    <p class="hero-sub">
-      From a cracked window on a mountain cabin to a full frameless shower
-      in your dream home — Haywood Glass brings expert craftsmanship and
-      honest service right to your door.
-    </p>
-    <div class="hero-estimate-badge" role="note" aria-label="Free estimates">
-      <div class="badge-icon" aria-hidden="true">📋</div>
-      <div class="badge-text">
-        <span class="badge-title">Free In-Person Estimates — Within 24 Hours*</span>
-        <span class="badge-sub">*When applicable · Serving Haywood County &amp; surrounding areas</span>
+  <!-- ── NAV ── -->
+  <header>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" aria-label="Haywood Glass — home">
+        <img src="brand-assets/Logo-tight.PNG" alt="Haywood Glass">
+      </a>
+      <div class="nav-right">
+        <a href="tel:8284008657" class="nav-phone">828-400-8657</a>
+        <a href="#service-form" class="btn-cta">Get Service</a>
       </div>
     </div>
+  </header>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <img src="brand-assets/Logo-tight.PNG" alt="Haywood Glass" class="hero-logo">
+
+    <p class="hero-copy">
+      From a cracked window on a mountain cabin to a full frameless shower in your dream home —
+      <strong>Haywood Glass</strong> brings expert craftsmanship and honest service
+      right to your door.
+    </p>
+
+    <p class="hero-location">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Haywood County &amp; Surrounding Areas, NC
+    </p>
+
     <div class="hero-ctas">
-      <a href="#contact" class="btn-primary">
-        Get Your Free Estimate
-        <span class="arrow" aria-hidden="true">→</span>
+      <a href="tel:8284008657" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Call or Text 828-400-8657
       </a>
-      <a href="#services" class="btn-outline">
-        Our Services
-        <span aria-hidden="true">↓</span>
-      </a>
-    </div>
-  </div>
-  <div class="scroll-hint" aria-hidden="true">
-    <span>Scroll</span>
-    <div class="arrow"></div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════ TRUST ═ -->
-<div id="trust" role="region" aria-label="Trust indicators">
-  <div class="trust-inner">
-    <div class="trust-item">
-      <div class="trust-icon" aria-hidden="true">🏔️</div>
-      <div>
-        <div class="trust-label">Serving</div>
-        <div class="trust-value">WNC <span>&amp;</span> Beyond</div>
-      </div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-icon" aria-hidden="true">⚡</div>
-      <div>
-        <div class="trust-label">Free Estimates</div>
-        <div class="trust-value">24<span>-Hr</span> Response</div>
-      </div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-icon" aria-hidden="true">🤝</div>
-      <div>
-        <div class="trust-label">Business Type</div>
-        <div class="trust-value">Locally <span>Owned</span></div>
-      </div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-icon" aria-hidden="true">⭐</div>
-      <div>
-        <div class="trust-label">Customer Rating</div>
-        <div class="trust-value">5<span>-Star</span> Service</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════ ABOUT ═ -->
-<section id="about" class="section" aria-labelledby="about-title">
-  <div class="section-inner">
-    <div class="about-grid">
-      <div class="about-img-wrap reveal">
-        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&q=80" alt="Haywood Glass technician installing glass in a Western North Carolina home">
-        <div class="about-img-badge">
-          Locally Owned<br>
-          <small>Haywood County, NC</small>
-        </div>
-      </div>
-      <div class="about-copy reveal reveal-delay-1">
-        <div>
-          <div class="section-tag">About Us</div>
-          <h2 id="about-title" class="section-title">Your Neighbor,<br>Your Glass Guy</h2>
-        </div>
-        <p>
-          Haywood Glass is a <strong>locally owned and operated</strong> glass company
-          serving Waynesville, Canton, Maggie Valley, Asheville, and the entire
-          Western North Carolina region. We're not a franchise or a big-box outfit —
-          we're your neighbor, and we treat your home like our own.
-        </p>
-        <p>
-          Whether you need a quick window repair, a stunning frameless shower
-          enclosure, or glass work for your business, we show up on time,
-          do the job right, and stand behind every piece of glass we install.
-          That's the Haywood way.
-        </p>
-        <div class="about-bullets">
-          <div class="about-bullet">Serving Haywood, Buncombe, Madison &amp; surrounding counties</div>
-          <div class="about-bullet">Residential and commercial glass — no job too small</div>
-          <div class="about-bullet">Free in-person estimates within 24 hours (when applicable)</div>
-          <div class="about-bullet">Quality materials, fair prices, mountain-strong workmanship</div>
-        </div>
-        <div>
-          <a href="#contact" class="btn-primary" style="margin-top:0.5rem;">
-            Get in Touch
-            <span aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════ SERVICES ══ -->
-<section id="services" class="section" aria-labelledby="services-title">
-  <div class="section-inner">
-    <div class="services-header">
-      <div>
-        <div class="section-tag reveal">What We Do</div>
-        <h2 id="services-title" class="section-title reveal reveal-delay-1">Glass Services<br>For Every Need</h2>
-      </div>
-      <p class="section-sub reveal reveal-delay-2" style="text-align: right; margin-bottom:0.25rem;">
-        From shower enclosures to storefronts — if it's glass, we handle it.
-        Trusted by homeowners and businesses across Western North Carolina.
-      </p>
-    </div>
-
-    <div class="services-grid">
-
-      <!-- 1 Shower & Bath -->
-      <div class="service-card reveal">
-        <div class="service-img">
-          <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=700&q=80" alt="Frameless glass shower enclosure">
-          <div class="service-img-overlay"></div>
-          <div class="service-icon-badge" aria-hidden="true">🚿</div>
-        </div>
-        <div class="service-body">
-          <h3 class="service-title">Shower &amp; Bath Glass</h3>
-          <p class="service-desc">
-            Upgrade your bathroom with a custom frameless or framed glass shower
-            enclosure. We measure, fabricate, and install every enclosure for a perfect,
-            watertight fit — clean lines that transform your whole space.
-          </p>
-          <a href="#contact" class="service-link">
-            Request a Quote <span class="arrow" aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- 2 Custom Mirrors -->
-      <div class="service-card reveal reveal-delay-1">
-        <div class="service-img">
-          <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=700&q=80" alt="Custom wall mirror installation">
-          <div class="service-img-overlay"></div>
-          <div class="service-icon-badge" aria-hidden="true">🪞</div>
-        </div>
-        <div class="service-body">
-          <h3 class="service-title">Custom Mirrors</h3>
-          <p class="service-desc">
-            From vanity mirrors and full bathroom walls to decorative accent pieces
-            and gym mirrors — we cut, polish, and install custom mirrors to any
-            size or shape you need.
-          </p>
-          <a href="#contact" class="service-link">
-            Request a Quote <span class="arrow" aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- 3 Windows -->
-      <div class="service-card reveal reveal-delay-2">
-        <div class="service-img">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Window repair and replacement in Western NC">
-          <div class="service-img-overlay"></div>
-          <div class="service-icon-badge" aria-hidden="true">🪟</div>
-        </div>
-        <div class="service-body">
-          <h3 class="service-title">Window Repair &amp; Replacement</h3>
-          <p class="service-desc">
-            Foggy seals, broken panes, drafty frames — we fix it all. Our window
-            repair and replacement services restore your view, improve energy
-            efficiency, and keep the mountain weather where it belongs: outside.
-          </p>
-          <a href="#contact" class="service-link">
-            Request a Quote <span class="arrow" aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- 4 Commercial / Storefront -->
-      <div class="service-card reveal reveal-delay-1">
-        <div class="service-img">
-          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&q=80" alt="Commercial storefront glass installation">
-          <div class="service-img-overlay"></div>
-          <div class="service-icon-badge" aria-hidden="true">🏢</div>
-        </div>
-        <div class="service-body">
-          <h3 class="service-title">Commercial &amp; Storefront Glass</h3>
-          <p class="service-desc">
-            First impressions matter on Main Street. We install and repair commercial
-            entry systems, display windows, office glass partitions, and
-            storefronts for businesses across Western North Carolina.
-          </p>
-          <a href="#contact" class="service-link">
-            Request a Quote <span class="arrow" aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- 5 Table Tops & Specialty -->
-      <div class="service-card reveal reveal-delay-2">
-        <div class="service-img">
-          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=700&q=80" alt="Custom glass table top and shelving">
-          <div class="service-img-overlay"></div>
-          <div class="service-icon-badge" aria-hidden="true">✨</div>
-        </div>
-        <div class="service-body">
-          <h3 class="service-title">Specialty &amp; Decorative Glass</h3>
-          <p class="service-desc">
-            Custom glass table tops, shelving, cabinet inserts, back-painted glass,
-            and decorative pieces — we fabricate specialty glass to fit your design
-            vision, no matter how unique the project.
-          </p>
-          <a href="#contact" class="service-link">
-            Request a Quote <span class="arrow" aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- 6 Door Glass -->
-      <div class="service-card reveal reveal-delay-3">
-        <div class="service-img">
-          <img src="https://images.unsplash.com/photo-1564540583246-934409427776?w=700&q=80" alt="Entry door and patio door glass replacement">
-          <div class="service-img-overlay"></div>
-          <div class="service-icon-badge" aria-hidden="true">🚪</div>
-        </div>
-        <div class="service-body">
-          <h3 class="service-title">Door Glass</h3>
-          <p class="service-desc">
-            Refresh your entry, patio, sliding, or French doors with new glass that
-            improves security, insulation, and curb appeal. Available in clear,
-            privacy, frosted, and decorative glass options.
-          </p>
-          <a href="#contact" class="service-link">
-            Request a Quote <span class="arrow" aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════ WHY US ══ -->
-<section id="why" class="section" aria-labelledby="why-title">
-  <div class="section-inner">
-    <div style="max-width:640px;">
-      <div class="section-tag reveal">Why Haywood Glass</div>
-      <h2 id="why-title" class="section-title light reveal reveal-delay-1">The Difference is<br>in the Details</h2>
-      <p class="section-sub light reveal reveal-delay-2">
-        We believe great glass work is about more than the glass itself.
-        It's about showing up when we say we will, doing what we promise,
-        and leaving your home better than we found it.
-      </p>
-    </div>
-    <div class="why-grid">
-      <div class="why-card reveal">
-        <span class="why-icon" aria-hidden="true">📋</span>
-        <h3 class="why-title">Free 24-Hour Estimates</h3>
-        <p class="why-desc">No pressure, no runaround. We'll come to you for a free in-person estimate and have pricing back to you within 24 hours whenever possible. You deserve to know what you're getting into upfront.</p>
-      </div>
-      <div class="why-card reveal reveal-delay-1">
-        <span class="why-icon" aria-hidden="true">🏔️</span>
-        <h3 class="why-title">True Local Expertise</h3>
-        <p class="why-desc">We know Western NC — the mountain homes, the local businesses, the weather that tests every window seal. We're not sending out a crew from Charlotte. We live here, work here, and care about this community.</p>
-      </div>
-      <div class="why-card reveal reveal-delay-2">
-        <span class="why-icon" aria-hidden="true">🔧</span>
-        <h3 class="why-title">Done Right, Guaranteed</h3>
-        <p class="why-desc">Every job we take, we take personally. From a simple window repair to a full frameless shower build-out, we use quality materials and stand behind our work. If something isn't right, we make it right.</p>
-      </div>
-      <div class="why-card reveal reveal-delay-1">
-        <span class="why-icon" aria-hidden="true">💬</span>
-        <h3 class="why-title">Straight Talk, Fair Prices</h3>
-        <p class="why-desc">No hidden fees, no surprise charges. We give you an honest assessment of what's needed — and what isn't. Good neighbors don't oversell, and neither do we.</p>
-      </div>
-      <div class="why-card reveal reveal-delay-2">
-        <span class="why-icon" aria-hidden="true">🏠</span>
-        <h3 class="why-title">Residential &amp; Commercial</h3>
-        <p class="why-desc">Whether you're updating your family home in Waynesville or your storefront on Main Street in Canton, we have the expertise to handle projects of any scale — no job too small, no project too ambitious.</p>
-      </div>
-      <div class="why-card reveal reveal-delay-3">
-        <span class="why-icon" aria-hidden="true">⏱️</span>
-        <h3 class="why-title">Respect for Your Time</h3>
-        <p class="why-desc">We show up when we say we will, we communicate clearly, and we work efficiently. Your time is valuable — we don't waste it with no-shows or vague scheduling windows.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════ GALLERY ═══ -->
-<section id="gallery" class="section" aria-labelledby="gallery-title">
-  <div class="section-inner">
-    <div class="section-tag reveal">Our Work</div>
-    <h2 id="gallery-title" class="section-title reveal reveal-delay-1">Craftsmanship<br>You Can See</h2>
-    <div class="gallery-grid">
-      <div class="gallery-item reveal">
-        <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=900&q=80" alt="Frameless shower enclosure installation">
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">Frameless Shower — Waynesville, NC</span>
-        </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-1">
-        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="Commercial storefront glass">
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">Storefront — Canton, NC</span>
-        </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-2">
-        <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80" alt="Custom wall mirror">
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">Custom Mirror — Maggie Valley, NC</span>
-        </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-1">
-        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80" alt="Window installation in mountain home">
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">Window Replacement — Asheville, NC</span>
-        </div>
-      </div>
-      <div class="gallery-item reveal reveal-delay-2">
-        <img src="https://images.unsplash.com/photo-1564540583246-934409427776?w=600&q=80" alt="Glass patio door installation">
-        <div class="gallery-item-overlay">
-          <span class="gallery-item-label">Patio Door Glass — Black Mountain, NC</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════ TESTIMONIALS ══ -->
-<section id="testimonials" class="section" aria-labelledby="testi-title">
-  <div class="section-inner">
-    <div style="text-align:center; max-width:560px; margin: 0 auto 1rem;">
-      <div class="section-tag reveal">Reviews</div>
-      <h2 id="testi-title" class="section-title reveal reveal-delay-1" style="text-align:center;">What Your Neighbors<br>Are Saying</h2>
-    </div>
-    <div class="testi-grid">
-      <div class="testi-card reveal">
-        <div class="testi-stars" aria-label="5 stars">★★★★★</div>
-        <p class="testi-quote">Matt came out the very next day for an estimate on our shower enclosure. The install was flawless — looks like it belongs in a magazine. I've already recommended Haywood Glass to three friends.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">
-            <img src="https://placehold.co/88x88/3A9ED4/ffffff?text=SR" alt="Sarah R.">
-          </div>
-          <div>
-            <div class="testi-name">Sarah R.</div>
-            <div class="testi-location">Waynesville, NC</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card reveal reveal-delay-1">
-        <div class="testi-stars" aria-label="5 stars">★★★★★</div>
-        <p class="testi-quote">We had a storefront window broken on a Sunday. Matt had it temporarily secured that day and fully replaced by Tuesday. Saved our small business serious headache. Truly a neighbor you can count on.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">
-            <img src="https://placehold.co/88x88/E84B1C/ffffff?text=TM" alt="Tom M.">
-          </div>
-          <div>
-            <div class="testi-name">Tom M.</div>
-            <div class="testi-location">Canton, NC</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card reveal reveal-delay-2">
-        <div class="testi-stars" aria-label="5 stars">★★★★★</div>
-        <p class="testi-quote">Fair price, great communication, and the custom mirror he cut for our dining room is absolutely perfect. No drama, no surprises — just honest work done well. This is the only glass company I'll ever call.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">
-            <img src="https://placehold.co/88x88/10141A/ffffff?text=JB" alt="Jennifer B.">
-          </div>
-          <div>
-            <div class="testi-name">Jennifer B.</div>
-            <div class="testi-location">Asheville, NC</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════ CTA BANNER ═ -->
-<section id="cta-banner" aria-labelledby="cta-title">
-  <div class="cta-bg" aria-hidden="true"></div>
-  <div class="cta-inner">
-    <div class="section-tag reveal" style="display:block; text-align:center; color:#F5A021;">Ready to Get Started?</div>
-    <h2 id="cta-title" class="section-title reveal reveal-delay-1" style="color:#fff; text-align:center;">Get Your Free Estimate<br>Within 24 Hours</h2>
-    <p class="reveal reveal-delay-2">
-      We'll come to you, take a look, and give you a no-pressure, honest quote.
-      Serving Haywood County and all of Western North Carolina —
-      your neighbors in glass.
-    </p>
-    <div class="reveal reveal-delay-3">
-      <a href="#contact" class="btn-primary" style="font-size:1.1rem; padding:1.15rem 2.8rem; display:inline-flex;">
-        Schedule My Free Estimate
-        <span aria-hidden="true" style="margin-left:0.5rem;">→</span>
+      <a href="#service-form" class="btn-secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Request Service
       </a>
     </div>
+  </section>
+
+  <!-- ── DOOR BANNER ── -->
+  <div class="door-banner" role="complementary">
+    <p>We come right to your door</p>
+    <span class="door-divider">·</span>
+    <p>Free in-person estimates</p>
+    <span class="door-divider">·</span>
+    <p>Text response within 2 hours</p>
   </div>
-</section>
 
-<!-- ════════════════════════════════════════ CONTACT ═══ -->
-<section id="contact" class="section" aria-labelledby="contact-title">
-  <div class="section-inner">
-    <div class="contact-grid">
-      <div class="contact-info">
-        <div>
-          <div class="section-tag reveal">Get In Touch</div>
-          <h2 id="contact-title" class="section-title reveal reveal-delay-1">Let's Talk<br>About Your Project</h2>
-          <p class="section-sub reveal reveal-delay-2">
-            Have a project in mind? Need a quick repair? We'd love to hear from you.
-            Fill out the form and we'll be in touch within one business day —
-            usually same day.
-          </p>
-        </div>
-        <div class="contact-detail reveal reveal-delay-1">
-          <div class="contact-detail-icon" aria-hidden="true">📞</div>
-          <div class="contact-detail-text">
-            <strong>Call or Text</strong>
-            <span>(828) 555-0182</span>
-          </div>
-        </div>
-        <div class="contact-detail reveal reveal-delay-2">
-          <div class="contact-detail-icon" aria-hidden="true">✉️</div>
-          <div class="contact-detail-text">
-            <strong>Email</strong>
-            <span>info@haywoodglass.com</span>
-          </div>
-        </div>
-        <div class="contact-detail reveal reveal-delay-3">
-          <div class="contact-detail-icon" aria-hidden="true">📍</div>
-          <div class="contact-detail-text">
-            <strong>Service Area</strong>
-            <span>Haywood County &amp; Surrounding Areas<br>Western North Carolina</span>
-          </div>
-        </div>
-        <div class="contact-detail reveal reveal-delay-4">
-          <div class="contact-detail-icon" aria-hidden="true">🕐</div>
-          <div class="contact-detail-text">
-            <strong>Business Hours</strong>
-            <span>Monday – Friday: 8am – 5pm<br>Saturday: By Appointment</span>
-          </div>
-        </div>
-      </div>
+  <!-- ── QUICK ACTIONS ── -->
+  <section id="get-started" aria-labelledby="started-title">
+    <div class="section-inner">
+      <p class="section-label">Simple process</p>
+      <h2 class="section-title" id="started-title">Easy to get started</h2>
 
-      <div class="contact-form reveal reveal-delay-2">
-        <h3 style="font-family:'Bebas Neue',sans-serif; font-size:1.75rem; letter-spacing:0.03em; color:#080A0C; margin-bottom:1.75rem;">Request a Free Estimate</h3>
-        <form action="#" method="POST" aria-label="Estimate request form">
-          <div class="form-row">
-            <div class="form-field">
-              <label for="fname">First Name</label>
-              <input type="text" id="fname" name="first_name" placeholder="Jane" required autocomplete="given-name">
+      <div class="paths-grid">
+
+        <!-- Card 1: Call or Text -->
+        <a href="tel:8284008657" class="path-card">
+          <div class="path-photo">
+            <img src="Assets/MattWebPhoto.jpg" alt="Matt — Haywood Glass owner">
+          </div>
+          <div class="path-icon icon-orange">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E84B1C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div class="path-title">Call or Text Matt directly</div>
+          <p class="path-desc">Fastest response. Matt will come directly to you — no hauling glass, no shop visit needed. Free in-person estimates within 24–48 hours anywhere across Haywood County and the surrounding area, <strong>at no charge.</strong></p>
+          <span class="path-cta cta-orange">Call or text now →</span>
+        </a>
+
+        <!-- Card 2: Request form with email + upload -->
+        <div class="form-card" id="service-form">
+          <div class="path-icon icon-orange">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E84B1C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </div>
+          <div class="path-title">Request a free estimate</div>
+
+          <!-- Success state -->
+          <div class="fc-success" id="fc-success" role="alert">
+            <div class="fc-success-icon">✓</div>
+            <div class="fc-success-title">Request received!</div>
+            <p class="fc-success-sub">Matt will be in touch within 24–48 hrs. For urgent needs call <a href="tel:8284008657" style="color:var(--orange);font-weight:700;">828-400-8657</a>.</p>
+          </div>
+
+          <form id="contact-form" action="#" novalidate>
+            <div class="fc-field">
+              <label for="f-name">Your Name</label>
+              <input type="text" id="f-name" name="name" placeholder="Jane Smith" required autocomplete="name">
             </div>
-            <div class="form-field">
-              <label for="lname">Last Name</label>
-              <input type="text" id="lname" name="last_name" placeholder="Smith" required autocomplete="family-name">
+            <div class="fc-field">
+              <label for="f-phone">Phone Number</label>
+              <input type="tel" id="f-phone" name="phone" placeholder="(828) 555-0123" required autocomplete="tel">
             </div>
-          </div>
-          <div class="form-row">
-            <div class="form-field">
-              <label for="phone">Phone</label>
-              <input type="tel" id="phone" name="phone" placeholder="(828) 555-0000" autocomplete="tel">
+            <div class="fc-field">
+              <label for="f-email">Email Address</label>
+              <input type="email" id="f-email" name="email" placeholder="you@example.com" autocomplete="email">
             </div>
-            <div class="form-field">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="jane@email.com" autocomplete="email">
+            <div class="fc-field">
+              <label for="f-desc">What do you need?</label>
+              <textarea id="f-desc" name="description" placeholder="Describe the issue — broken window, shower door, mirror, etc." required></textarea>
             </div>
-          </div>
-          <div class="form-field">
-            <label for="service">Service Needed</label>
-            <select id="service" name="service">
-              <option value="">Select a service…</option>
-              <option value="shower">Shower &amp; Bath Glass</option>
-              <option value="mirror">Custom Mirrors</option>
-              <option value="window">Window Repair / Replacement</option>
-              <option value="commercial">Commercial / Storefront Glass</option>
-              <option value="specialty">Specialty &amp; Decorative Glass</option>
-              <option value="door">Door Glass</option>
-              <option value="other">Other / Not Sure</option>
-            </select>
-          </div>
-          <div class="form-field">
-            <label for="location">City / Town in WNC</label>
-            <input type="text" id="location" name="location" placeholder="Waynesville, Canton, Maggie Valley…">
-          </div>
-          <div class="form-field">
-            <label for="message">Tell Us About Your Project</label>
-            <textarea id="message" name="message" placeholder="Briefly describe what you need. The more detail, the better we can prepare for your estimate…"></textarea>
-          </div>
-          <button type="submit" class="btn-primary" style="width:100%; justify-content:center; font-size:1rem; padding:1.05rem;">
-            Send My Request →
-          </button>
-          <p style="font-size:0.8rem; color:#6B7589; text-align:center; margin-top:1rem; line-height:1.5;">
-            We respond within one business day. Free in-person estimates available within 24 hours when applicable.
-          </p>
-        </form>
+            <div class="fc-field">
+              <label>Photo of the damage <span style="font-weight:400;opacity:0.55;">(optional)</span></label>
+              <div class="fc-upload" id="fc-upload-area">
+                <input type="file" id="f-photos" name="photos" accept="image/*" multiple aria-label="Upload photos">
+                <div class="fc-upload-inner">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--orange)"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                  <span class="fc-upload-label" id="fc-upload-label">Attach photos · JPG, PNG, HEIC</span>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="fc-submit">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Send — Free Estimate
+            </button>
+          </form>
+        </div>
+
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ════════════════════════════════════════ FOOTER ════ -->
-<footer id="footer" role="contentinfo">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div>
-        <div class="footer-logo">
-          <img src="brand-assets/Logo.PNG" alt="Haywood Glass">
+  <!-- ── WINDOW SCROLL CROSSFADE ── -->
+  <section id="window-reveal" aria-hidden="true">
+    <div class="wr-sticky">
+      <!-- Broken window — base layer -->
+      <div class="wr-frame wr-broken">
+        <img src="Assets/Broken&FoggedHungWindow.jpg" alt="">
+        <div class="wr-overlay wr-overlay-broken"></div>
+        <div class="wr-text wr-text-from">
+          <span class="wr-line1">From cracked</span>
         </div>
-        <p class="footer-about">
-          Western North Carolina's trusted glass specialists. Locally owned, neighbor-focused, and committed to quality craftsmanship — from Waynesville to Asheville and everywhere in between.
-        </p>
       </div>
-      <div>
-        <div class="footer-col-title">Services</div>
-        <nav class="footer-links" aria-label="Service links">
-          <a href="#services">Shower &amp; Bath Glass</a>
-          <a href="#services">Custom Mirrors</a>
-          <a href="#services">Window Repair</a>
-          <a href="#services">Commercial Glass</a>
-          <a href="#services">Specialty Glass</a>
-          <a href="#services">Door Glass</a>
-        </nav>
-      </div>
-      <div>
-        <div class="footer-col-title">Company</div>
-        <nav class="footer-links" aria-label="Company links">
-          <a href="#about">About Us</a>
-          <a href="#gallery">Our Work</a>
-          <a href="#testimonials">Reviews</a>
-          <a href="#contact">Contact</a>
-          <a href="#contact">Free Estimate</a>
-        </nav>
-      </div>
-      <div>
-        <div class="footer-col-title">Service Area</div>
-        <div class="footer-links" style="gap:0.45rem;">
-          <span style="font-size:0.9rem;color:rgba(255,255,255,0.5);">Waynesville</span>
-          <span style="font-size:0.9rem;color:rgba(255,255,255,0.5);">Canton</span>
-          <span style="font-size:0.9rem;color:rgba(255,255,255,0.5);">Maggie Valley</span>
-          <span style="font-size:0.9rem;color:rgba(255,255,255,0.5);">Asheville</span>
-          <span style="font-size:0.9rem;color:rgba(255,255,255,0.5);">Black Mountain</span>
-          <span style="font-size:0.9rem;color:rgba(255,255,255,0.5);">Marshall</span>
-          <span style="font-size:0.9rem;color:rgba(255,255,255,0.5);">And Surrounding Areas</span>
+      <!-- Clear window — fades in on scroll -->
+      <div class="wr-frame wr-clear">
+        <img src="Assets/ClearHungWindow.jpg" alt="">
+        <div class="wr-overlay wr-overlay-clear"></div>
+        <div class="wr-text wr-text-to">
+          <span class="wr-line2">Clear in no time.</span>
         </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">
-        &copy; 2025 Haywood Glass. All rights reserved. · Serving Western North Carolina with pride.
-      </p>
-      <p class="footer-copy">
-        <a href="#contact">Privacy Policy</a> · <a href="#contact">Terms</a>
-      </p>
+  </section>
+
+  <!-- ── SERVICES ── -->
+  <section id="services" aria-labelledby="services-title">
+    <div class="section-inner">
+      <p class="section-label">What we do</p>
+      <h2 class="section-title" id="services-title">Specializing in</h2>
+
+      <div class="services-grid">
+
+        <!-- Tile 1: Standard Windows & Sliding Doors -->
+        <div class="service-tile" data-tile>
+          <div class="tile-visual">
+            <img src="Assets/StandardWindow.jpg" alt="Standard window and sliding door repair" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+          <div class="tile-body">
+            <div class="service-name">Standard Window and Sliding Doors</div>
+            <p class="service-desc">Window panes, fogged double-pane units, sliding doors, and screen repair. Fast turnaround across the region.</p>
+          </div>
+        </div>
+
+        <!-- Tile 2: Mirrors -->
+        <div class="service-tile" data-tile>
+          <div class="tile-visual">
+            <img src="Assets/CustomMirror.jpg" alt="Custom mirror installation" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+          <div class="tile-body">
+            <div class="service-name">Custom Mirrors &amp; Tabletops</div>
+            <p class="service-desc">Precision-cut mirrors and glass table covers in any shape or size — for your home, bathroom, or office.</p>
+          </div>
+        </div>
+
+        <!-- Tile 3: Shower/Storefront -->
+        <div class="service-tile" data-tile>
+          <div class="tile-visual">
+            <img src="Assets/ShowerDoors.jpg" alt="Frameless shower enclosure" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+          <div class="tile-body">
+            <div class="service-name">Storefront &amp; Shower Enclosures</div>
+            <p class="service-desc">Custom frameless and semi-frameless shower doors, glass enclosures, and commercial storefront glass.</p>
+          </div>
+        </div>
+
+        <!-- Tile 4: Cabinet -->
+        <div class="service-tile" data-tile>
+          <div class="tile-visual">
+            <img src="Assets/Cabinet_Shelf.jpg" alt="Cabinet glass inserts" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+          <div class="tile-body">
+            <div class="service-name">Cabinet Faces &amp; Shelving Glass</div>
+            <p class="service-desc">Clear, frosted, or decorative glass inserts for kitchen cabinets, display cases, and custom glass shelving.</p>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </div>
-</footer>
+  </section>
 
-<!-- Sticky mobile CTA -->
-<a href="#contact" class="sticky-cta" aria-label="Get a free estimate">
-  📋 Get Your Free Estimate →
-</a>
+  <!-- ── ABOUT MATT ── -->
+  <section id="about" aria-labelledby="about-title">
+    <div class="section-inner about-inner">
+      <div class="about-photo-col">
+        <img src="Assets/Matt&JenniFall.jpeg" alt="Matt Johnston — Haywood Glass" class="about-photo">
+        <p class="about-name">Matt Johnston</p>
+        <div class="about-stats">
+          <div class="astat"><span class="astat-num">20+</span><span class="astat-label">Years fixing glass</span></div>
+          <div class="astat"><span class="astat-num">~2hr</span><span class="astat-label">Text response</span></div>
+          <div class="astat"><span class="astat-num">100%</span><span class="astat-label">Owner-operated</span></div>
+        </div>
+      </div>
+      <div class="about-text-col">
+        <p class="section-label">Who you're working with</p>
+        <h2 class="section-title" id="about-title">Matt — glass guy, family man, your neighbor</h2>
+        <p class="about-body">With over <strong>20 years fixing glass</strong>, Matt knows every brand, every frame style, and every shortcut that leads to a callback — and he doesn't take them. Raised in Macon County and rooted right here in the mountains, he started Haywood Glass to do things on his own terms: show up fast, do the work right, and treat every home like his own.</p>
+        <p class="about-body">Matt is a father of two and the kind of person who texts you back the same afternoon. When you call Haywood Glass, you're not getting a dispatcher — you're getting Matt. He'll come out himself, give you an honest assessment, and get it fixed. No runaround, no upsell, no waiting on a crew that never shows.</p>
+      </div>
+    </div>
+  </section>
 
-<script>
-  // ── Mobile menu ──────────────────────────────────────
-  const hamburger = document.getElementById('hamburger-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
+  <!-- ── FOOTER ── -->
+  <footer id="contact">
+<div class="footer-inner">
+      <img src="brand-assets/Logo-tight.PNG" alt="Haywood Glass">
+      <div class="footer-contacts">
+        <a href="tel:8284008657">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          828-400-8657
+        </a>
+        <a href="mailto:Matt@HaywoodGlass.com">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Matt@HaywoodGlass.com
+        </a>
+        <span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Haywood County, NC
+        </span>
+      </div>
+      <p class="footer-tagline">Locally owned · Professionally installed · Right to your door</p>
+      <p class="footer-copy">© 2026 Haywood Glass — Western North Carolina</p>
+    </div>
+  </footer>
 
-  hamburger.addEventListener('click', () => {
-    const open = mobileMenu.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', open);
-    document.body.style.overflow = open ? 'hidden' : '';
-  });
+  <script>
+    // ── Window crossfade on scroll ──
+    (function() {
+      const section = document.getElementById('window-reveal');
+      const sticky  = section.querySelector('.wr-sticky');
 
-  function closeMobileMenu() {
-    mobileMenu.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
-
-  // ── Scroll reveal ────────────────────────────────────
-  const revealEls = document.querySelectorAll('.reveal');
-  // Fallback: make everything visible after 600ms (handles screenshots/bots/no-JS)
-  setTimeout(() => revealEls.forEach(el => el.classList.add('visible')), 600);
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+      function update() {
+        const rect   = section.getBoundingClientRect();
+        const navH   = 68;
+        // scrolled distance into the section past the sticky top
+        const scrolled = -rect.top + navH;
+        // total scroll travel = section height minus one viewport
+        const travel   = section.offsetHeight - (window.innerHeight - navH);
+        // clamp 0→1
+        const progress = Math.max(0, Math.min(1, scrolled / travel));
+        sticky.style.setProperty('--wr-progress', progress.toFixed(4));
       }
+
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
+      update();
+    })();
+
+    // ── File upload label ──
+    document.getElementById('f-photos').addEventListener('change', function() {
+      const lbl = document.getElementById('fc-upload-label');
+      lbl.textContent = this.files.length === 0
+        ? 'Attach photos · JPG, PNG, HEIC'
+        : this.files.length === 1
+          ? `1 photo: ${this.files[0].name}`
+          : `${this.files.length} photos selected`;
     });
-  }, { threshold: 0.05, rootMargin: '0px 0px 0px 0px' });
 
-  revealEls.forEach(el => observer.observe(el));
+    // ── Form submit ──
+    // TODO: Connect to Formspree / Netlify Forms to deliver submissions to Matt's email
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      this.style.display = 'none';
+      document.getElementById('fc-success').classList.add('visible');
+    });
 
-  // ── Nav background on scroll ─────────────────────────
-  const nav = document.getElementById('site-nav');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 60) {
-      nav.style.background = 'rgba(8,10,12,0.98)';
-    } else {
-      nav.style.background = 'rgba(8,10,12,0.96)';
+    // ── Service tile stagger reveal ──
+    const tileReveal = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('tile-revealed');
+          tileReveal.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('[data-tile]').forEach(el => tileReveal.observe(el));
+
+    // ── Crossfade: pause scroll when tile is fully in view, auto-fade, then resume ──
+    const cfTile = document.querySelector('[data-crossfade]');
+    if (cfTile) {
+      const beforeImg  = cfTile.querySelector('.img-before');
+      const tileVisual = cfTile.querySelector('.tile-visual');
+      const hint       = cfTile.querySelector('.compare-hint');
+      let state = 'pending'; // pending | fading | done
+
+      function lockScroll() {
+        const y = window.scrollY;
+        document.body._cfScrollY = y;
+        document.body.style.top      = `-${y}px`;
+        document.body.style.position = 'fixed';
+        document.body.style.width    = '100%';
+        document.body.style.overflowY = 'scroll'; // keep scrollbar visible to avoid layout shift
+      }
+
+      function unlockScroll() {
+        const y = document.body._cfScrollY || 0;
+        document.body.style.position  = '';
+        document.body.style.top       = '';
+        document.body.style.width     = '';
+        document.body.style.overflowY = '';
+        window.scrollTo(0, y);
+      }
+
+      function runFade() {
+        state = 'fading';
+        lockScroll();
+        hint && hint.classList.add('hidden');
+
+        // Let the browser settle one frame before starting the transition
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            beforeImg.classList.add('cf-fading');
+            beforeImg.style.opacity = '0';
+          });
+        });
+
+        beforeImg.addEventListener('transitionend', () => {
+          state = 'done';
+          unlockScroll();
+        }, { once: true });
+      }
+
+      window.addEventListener('scroll', () => {
+        if (state !== 'pending') return;
+        const vr = tileVisual.getBoundingClientRect();
+        const vh = window.innerHeight;
+        // Fire when the image area is completely within the viewport
+        if (vr.top >= 0 && vr.bottom <= vh) {
+          runFade();
+        }
+      }, { passive: true });
     }
-  }, { passive: true });
+  </script>
 
-  // ── Form submit (placeholder) ────────────────────────
-  document.querySelector('form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const btn = e.target.querySelector('button[type=submit]');
-    btn.textContent = '✓ Request Sent — We\'ll be in touch soon!';
-    btn.style.background = '#2a7d3a';
-    btn.disabled = true;
-  });
-</script>
 </body>
 </html>
