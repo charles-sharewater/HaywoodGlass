@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Brand orange background with slight radius -->
+  <rect width="32" height="32" rx="5" fill="#E84B1C"/>
+  <!-- Window frame -->
+  <rect x="4.5" y="4.5" width="23" height="23" rx="2" fill="none" stroke="white" stroke-width="2.4"/>
+  <!-- Horizontal muntin -->
+  <line x1="4.5" y1="16" x2="27.5" y2="16" stroke="white" stroke-width="2.4"/>
+  <!-- Vertical muntin -->
+  <line x1="16" y1="4.5" x2="16" y2="27.5" stroke="white" stroke-width="2.4"/>
+</svg>
