@@ -930,6 +930,7 @@
       btn.disabled = true;
 
       const data = new FormData(this);
+      data.delete('photos'); // file uploads not supported on current plan
       try {
         const res = await fetch('https://formspree.io/f/xvzdpvdr', {
           method: 'POST',
@@ -940,11 +941,15 @@
           this.style.display = 'none';
           document.getElementById('fc-success').classList.add('visible');
         } else {
+          const json = await res.json().catch(() => ({}));
+          const msg = (json.errors || []).map(e => e.message).join(' ') || 'Unknown error';
+          console.error('Formspree error:', res.status, msg);
           btn.innerHTML = originalHTML;
           btn.disabled = false;
           alert('Something went wrong — please call or text Matt at 828-400-8657.');
         }
-      } catch {
+      } catch (err) {
+        console.error('Form submit error:', err);
         btn.innerHTML = originalHTML;
         btn.disabled = false;
         alert('Something went wrong — please call or text Matt at 828-400-8657.');
