@@ -745,16 +745,7 @@
               <label for="f-desc">What do you need?</label>
               <textarea id="f-desc" name="description" placeholder="Describe the issue — broken window, shower door, mirror, etc." required></textarea>
             </div>
-            <div class="fc-field">
-              <label>Photo of the damage <span style="font-weight:400;opacity:0.55;">(optional)</span></label>
-              <div class="fc-upload" id="fc-upload-area">
-                <input type="file" id="f-photos" name="photos" accept="image/*" multiple aria-label="Upload photos">
-                <div class="fc-upload-inner">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--orange)"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                  <span class="fc-upload-label" id="fc-upload-label">Attach photos · JPG, PNG, HEIC</span>
-                </div>
-              </div>
-            </div>
+
             <button type="submit" class="fc-submit">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
               Send — Free Estimate
@@ -911,15 +902,6 @@
       obs.observe(section);
     })();
 
-    // ── File upload label ──
-    document.getElementById('f-photos').addEventListener('change', function() {
-      const lbl = document.getElementById('fc-upload-label');
-      lbl.textContent = this.files.length === 0
-        ? 'Attach photos · JPG, PNG, HEIC'
-        : this.files.length === 1
-          ? `1 photo: ${this.files[0].name}`
-          : `${this.files.length} photos selected`;
-    });
 
     // ── Form submit → Formspree (emails haywoodglass828@gmail.com) ──
     document.getElementById('contact-form').addEventListener('submit', async function(e) {
