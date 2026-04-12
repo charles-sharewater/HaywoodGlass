@@ -1,6 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- Brand orange background with slight radius -->
+  <defs>
+    <clipPath id="bounds">
+      <rect width="32" height="32" rx="5"/>
+    </clipPath>
+  </defs>
+
+  <!-- Brand orange background -->
   <rect width="32" height="32" rx="5" fill="#E84B1C"/>
+
+  <!-- Blue diagonal slash (mirrors the logo swoosh) -->
+  <g clip-path="url(#bounds)">
+    <path d="M-2 27 L26 20 L32 22 L4 30 Z" fill="#3A9ED4"/>
+  </g>
+
   <!-- Window frame -->
   <rect x="4.5" y="4.5" width="23" height="23" rx="2" fill="none" stroke="white" stroke-width="2.4"/>
   <!-- Horizontal muntin -->
