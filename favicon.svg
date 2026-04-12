@@ -5,18 +5,16 @@
     </clipPath>
   </defs>
 
-  <!-- Brand orange background -->
-  <rect width="32" height="32" rx="5" fill="#E84B1C"/>
+  <!-- Blue base (bottom-right) -->
+  <rect width="32" height="32" rx="5" fill="#3A9ED4"/>
 
-  <!-- Blue diagonal slash (mirrors the logo swoosh) -->
+  <!-- Orange top-left triangle — diagonal from bottom-left (0,32) to top-right (32,0) -->
   <g clip-path="url(#bounds)">
-    <path d="M-2 27 L26 20 L32 22 L4 30 Z" fill="#3A9ED4"/>
+    <polygon points="0,0 32,0 0,32" fill="#E84B1C"/>
   </g>
 
-  <!-- Window frame -->
+  <!-- White window pane -->
   <rect x="4.5" y="4.5" width="23" height="23" rx="2" fill="none" stroke="white" stroke-width="2.4"/>
-  <!-- Horizontal muntin -->
   <line x1="4.5" y1="16" x2="27.5" y2="16" stroke="white" stroke-width="2.4"/>
-  <!-- Vertical muntin -->
   <line x1="16" y1="4.5" x2="16" y2="27.5" stroke="white" stroke-width="2.4"/>
 </svg>
